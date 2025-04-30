@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "target": "es6",         // versión de JS de salida
+      "module": "commonjs",    // sistema de módulos
+      "outDir": "dist",        // carpeta de compilación
+      "strict": true,            // activa chequeos estrictos
+      "esModuleInterop": true    // compatibilidad con módulos ES
+    }
+  }
