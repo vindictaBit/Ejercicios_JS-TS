@@ -1,3 +1,32 @@
+// Clases
+
+// Clase base
+class Animal {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+
+  hablar() {
+    console.log(`${this.nombre} hace un sonido.`);
+  }
+}
+
+// Clase derivada
+class Perro extends Animal {
+  constructor(nombre, raza) {
+    super(nombre);
+    this.raza = raza;
+  }
+
+  hablar() {
+    console.log(`${this.nombre} ladra. Es un ${this.raza}.`);
+  }
+}
+
+// Prueba
+const perro = new Perro("Coco", "Labrador");
+perro.hablar(); // Coco ladra. Es un Labrador.
+
 // https://codigoconjuan.com/metodos-para-arreglos-foreach-map-filter-find-reduce-y-some/
 
 // Nuestra "mini base de datos" de autos, arreglos de objetos
@@ -66,3 +95,23 @@ console.log('Total inventario: $' + totalInventario);
 console.log('--- .some (existe Ferrari) ---');
 const existeFerrari = autos.some(auto => auto.marca === 'Ferrari');
 console.log('¿Hay Ferrari? ' + existeFerrari);
+
+// 7) .repeat: repetir un mensaje si hay autos rojos
+console.log('--- .repeat ---');
+if (autosRojos.length > 0) {
+  console.log('¡Hay autos rojos disponibles!\n'.repeat(3));
+}
+
+// 8) .sort: ordenar autos por precio (ascendente)
+console.log('--- .sort (precio ascendente) ---');
+const autosOrdenadosPorPrecio = [...autos].sort((a, b) => a.precio - b.precio);
+console.log(autosOrdenadosPorPrecio);
+
+// 9) .reverse: autos ordenados de más caro a más barato
+console.log('--- .reverse (precio descendente) ---');
+const autosPrecioDescendente = [...autos].sort((a, b) => a.precio - b.precio).reverse();
+console.log(autosPrecioDescendente);
+
+console.log('--- .reverse (marcas en orden inverso) ---');
+const marcasInvertidas = [...marcas].reverse();
+console.log(marcasInvertidas);
