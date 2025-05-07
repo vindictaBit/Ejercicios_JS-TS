@@ -110,3 +110,28 @@ type Auto = {
   console.log('--- .reverse (marcas invertidas) ---');
   const marcasInvertidas: string[] = [...marcas].reverse();
   console.log(marcasInvertidas);
+
+// — Promise + async/await —
+// Simula una búsqueda asincrónica de un auto por marca
+function buscarAutoPorMarca(marca: string): Promise<Auto> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const encontrado = autos.find(a => a.marca === marca);
+        if (encontrado) resolve(encontrado);
+        else reject(`No se encontró ningún auto de marca ${marca}`);
+      }, 1000);
+    });
+  }
+  
+  async function mostrarAutoPorMarca(marca: string): Promise<void> {
+    try {
+      const auto = await buscarAutoPorMarca(marca);
+      console.log(`Auto encontrado: ${auto.marca} ${auto.modelo} ($${auto.precio})`);
+    } catch (err) {
+      console.error(`Error: ${err}`);
+    }
+  }
+  
+  // Llamadas de prueba
+  mostrarAutoPorMarca('Audi');
+  mostrarAutoPorMarca('Ferrari');

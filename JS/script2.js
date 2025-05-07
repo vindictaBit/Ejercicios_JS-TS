@@ -103,6 +103,7 @@ if (autosRojos.length > 0) {
 }
 
 // 8) .sort: ordenar autos por precio (ascendente)
+// ... spread operator "copia" para no modificar el array original
 console.log('--- .sort (precio ascendente) ---');
 const autosOrdenadosPorPrecio = [...autos].sort((a, b) => a.precio - b.precio);
 console.log(autosOrdenadosPorPrecio);
@@ -115,3 +116,28 @@ console.log(autosPrecioDescendente);
 console.log('--- .reverse (marcas en orden inverso) ---');
 const marcasInvertidas = [...marcas].reverse();
 console.log(marcasInvertidas);
+
+// — Promise + async/await —
+// Simula una búsqueda asincrónica de un auto por marca
+function buscarAutoPorMarca(marca) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const encontrado = autos.find(a => a.marca === marca);
+      if (encontrado) resolve(encontrado);
+      else reject(`No se encontró ningún auto de marca ${marca}`);
+    }, 1000);
+  });
+}
+
+async function mostrarAutoPorMarca(marca) {
+  try {
+    const auto = await buscarAutoPorMarca(marca);
+    console.log(`Auto encontrado: ${auto.marca} ${auto.modelo} ($${auto.precio})`);
+  } catch (err) {
+    console.log(`Error:`, err);
+  }
+}
+
+// Llamadas de prueba
+mostrarAutoPorMarca('Audi');
+mostrarAutoPorMarca('Ferrari');

@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 // Definición de la clase base
 class Animal {
     constructor(nombre) {
@@ -19,8 +28,8 @@ class Perro extends Animal {
     }
 }
 // Prueba
-const perro = new Perro("Fido", "Golden Retriever");
-perro.hablar(); // Fido ladra. Es un Golden Retriever.
+const perro = new Perro("Coquito", "Golden Retriever");
+perro.hablar(); // Coquito ladra. Es un Golden Retriever.
 const autos = [
     { marca: 'BMW', modelo: 'Serie 3', year: 2012, precio: 30000, puertas: 4, color: 'Blanco', transmision: 'automatico' },
     { marca: 'Audi', modelo: 'A4', year: 2018, precio: 40000, puertas: 4, color: 'Negro', transmision: 'automatico' },
@@ -81,3 +90,30 @@ console.log(autosPrecioDescendente);
 console.log('--- .reverse (marcas invertidas) ---');
 const marcasInvertidas = [...marcas].reverse();
 console.log(marcasInvertidas);
+// — Promise + async/await —
+// Simula una búsqueda asincrónica de un auto por marca
+function buscarAutoPorMarca(marca) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const encontrado = autos.find(a => a.marca === marca);
+            if (encontrado)
+                resolve(encontrado);
+            else
+                reject(`No se encontró ningún auto de marca ${marca}`);
+        }, 1000);
+    });
+}
+function mostrarAutoPorMarca(marca) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const auto = yield buscarAutoPorMarca(marca);
+            console.log(`Auto encontrado: ${auto.marca} ${auto.modelo} ($${auto.precio})`);
+        }
+        catch (err) {
+            console.error(`Error: ${err}`);
+        }
+    });
+}
+// Llamadas de prueba
+mostrarAutoPorMarca('Audi');
+mostrarAutoPorMarca('Ferrari');
